@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:jaano_articles_scripe/article_api_service.dart';
+import 'package:jaano_articles_scripe/article_model.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");  // Ensure this is loaded before anything else
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -70,6 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    ApiService().getArticle(Categories.business);
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
