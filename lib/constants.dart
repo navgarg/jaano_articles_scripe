@@ -1,7 +1,10 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'article_model.dart';
+
 const baseUrl="https://newsdata.io/";
 String newsUrl='/api/1/latest?country=in&apiKey=${dotenv.env['NEWS_API_KEY']}&language=en';
+const String Claude_baseUrl = 'https://api.anthropic.com/v1/messages';
 
 final List<int> homeTileColors = [
   ///economy background color
@@ -19,3 +22,12 @@ final List<int> homeTileColors = [
 ];
 
 final labels = ["Business", "Nature", "Health", "Science", "Sports", "Tech"];
+
+final categories = [
+  Categories.business,
+  Categories.environment,
+  Categories.health,
+  Categories.science,
+  Categories.sports,
+  Categories.technology
+];

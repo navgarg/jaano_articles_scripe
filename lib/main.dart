@@ -3,9 +3,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jaano_articles_scripe/article_api_service.dart';
+import 'package:jaano_articles_scripe/services/article_api_service.dart';
 import 'package:jaano_articles_scripe/article_model.dart';
-import 'package:jaano_articles_scripe/articles_screen.dart';
+import 'package:jaano_articles_scripe/screens/articles_screen.dart';
 
 import 'firebase_options.dart';
 
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: ArticlesScreen(category: Categories.business),
+      home: ArticlesScreen(),
     );
   }
 }

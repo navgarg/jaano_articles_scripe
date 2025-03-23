@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:jaano_articles_scripe/riverpod_providers.dart';
-import '../constants.dart';
+import 'package:jaano_articles_scripe/services/riverpod_providers.dart';
+import '../../constants.dart';
 
 class Carousel extends ConsumerWidget {
   const Carousel({super.key});

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:jaano_articles_scripe/services/claude_api_service.dart';
 
 class ArticleSource{
   String? name;
@@ -33,6 +34,8 @@ class Question{
   String? answer;
 
   Question({required this.question, required this.answer});
+
+
 
   Map<String, dynamic> toMap() {
     return {
@@ -116,6 +119,8 @@ class Article {
       isCompleted: isCompleted ?? this.isCompleted,
     );
   }
+
+
 
   ///this method is only called if data for the day is not already present in firebase.
   static Future<Article> fromJson(Map<String, dynamic> json) async {

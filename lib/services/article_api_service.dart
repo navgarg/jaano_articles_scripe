@@ -5,20 +5,22 @@ import 'package:intl/intl.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'article_model.dart';
-import 'constants.dart';
+import '../article_model.dart';
+import '../constants.dart';
 
 class ApiService {
   final client = http.Client();
-  static const String lastFetchKey = 'last_fetch_date';
-  static const String articlesCacheKey = 'cached_articles';
+  // static const String lastFetchKey = 'last_fetch_date';
+  // static const String articlesCacheKey = 'cached_articles';
 
   ///Make HTTP request and get news articles from API
   Future<List<Article>> getArticle(Categories cat) async {
 
     final prefs = await SharedPreferences.getInstance();
-    final lastFetchDate = prefs.getString(lastFetchKey) ?? "";
+    final String categoryFetchKey = 'last_fetch_date_${cat.name}';
+    final String categoryCacheKey = 'cached_articles_${cat.name}';
 
+    final lastFetchDate = prefs.getString(categoryFetchKey) ?? "";
     final now = DateTime.now();
     final today = "${now.year}-${now.month}-${now.day}";
     final currentHour = now.hour;
@@ -28,7 +30,7 @@ class ApiService {
     // - The current time is >= 6 AM
     if (lastFetchDate == today || currentHour < 6) {
       print("skipping fetch");
-      final cachedData = prefs.getString(articlesCacheKey);
+      final cachedData = prefs.getString(categoryCacheKey);
       if (cachedData != null) {
         final List<dynamic> jsonList = jsonDecode(cachedData);
         List<Article> cachedArticles = await Future.wait(
@@ -60,8 +62,8 @@ class ApiService {
       List<Article> articles = await Future.wait(body.map((e) async => Article.fromJson(e)).toList());
       print("article rcvd successfully");
       print(articles);
-      prefs.setString(lastFetchKey, today);
-      prefs.setString(articlesCacheKey, jsonEncode(body));
+      prefs.setString(categoryFetchKey, today);
+      prefs.setString(categoryCacheKey, jsonEncode(body));
       return articles;
     } catch (e) {
       print("Error fetching articles: $e");
